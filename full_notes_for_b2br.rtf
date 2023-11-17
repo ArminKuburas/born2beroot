@@ -1,0 +1,175 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 What is a virtual machine?\
+\
+A VM is a software emulation of a physical computer. It allows one to run an operating system within another OS. This enables you to create and run multiple virtual computers on a single physical machine. Each virtual machine operates independently and can run its own operating system, making it a versatile tool for various purposes.\
+\
+Key concepts:\
+Host Maschine: The physical computer on which the virtualisation software runs.\
+Guest machine (VM): the virtualised instance of a computer that runs within the host machine.\
+\
+What is VirtualBox?\
+\
+\
+Oracle VM VirtualBox is a free and open source hosted hypervisor for x86 virtualisation.  In simpler terms, virtual box is a virtualisation  platform that allows one to create and run virtual machines on a computer. It supports various guest operating systems, including linux, Windows, MacOS and others.\
+Key features:\
+Cross Platform: Available on many different platforms\
+Snapshotting: you can take snapshots of a virtual machine, allowing you to revert it to a previous state if something goes wrong\
+Networking: it provides various networking options, allowing one to configure how your virtual machines interact with the host and other VMs.\
+A hypervisor, also known as a Virtual Machine Monitor (VMM) is a software or firmware layer that enables the virtualisation of physical computer hardware. It allows multiple operating systems to share the same physical hardware by creating and managing virtual machines (VMs). These VMs operate as independent instances, each running its own operating system and applications.\
+\
+Two types:\
+Bare-Metal Hypervisor:\
+This type of hypervisor runs on top of a host operating system.\
+It does not require a host operating system. \
+Examples include VMware ESXI, Microsoft Hyper-V and Xen.\
+\
+Hosted Hypervisor:\
+Runs on top of a host operating system.\
+It leverages the host OS to manage hardware resources and provides virtulzation capabilities.\
+Examples include Virtualbox, VMware Workstation and Parallels Desktop.\
+\
+Key functions:\
+Resource allocation\
+Isolation (VMs are isolated from each other, meaning their activities do not affect others)\
+Hardware abstraction: it abstracts the underlying hardware, presenting a virtualised set of resources to each virtual machine.\
+VM lifecycle management: handle the creation, deployment and termination of VMs. \
+Live Migration: some advanced hypervisors support live migration, allowing VMs to be moved from one physical host to another without interruption to the running applications.\
+\
+They are a fundamental concept of virtualisation, enabling organisations to consolidate workloads, improve resource utilisation etc.\
+\
+\
+
+\f1\b What is an Operating system?\
+\
+
+\f0\b0 An OS is a system software that manages computer hardware, software resources and provides various services for computer programs. It acts as an intermediary between hardware and the user applications. Key functions of an operating system include:\
+\
+Process Management: allocating system resources to processes, scheduling tasks and managing process communication.\
+Memory management: Organising and managing files on storage devices.\
+Device management: managing input and output devices.\
+Security and access Control: Enforcing security policies and controlling user access to resources.\
+User Interface: Providing a user interface for interacting with the computer.\
+\
+Benefits of Debian Linux:\
+\
+It is known for it\'92s Stability and Reliability\
+\
+Package Management:\
+Debian uses the APT(Advanced Package Tool) package management system. It simplifies the process of installing, updating or removing software packages.\
+\
+Wide Range of Software:\
+It supports a vast repository of software packages. \
+\
+Community and Support:\
+Debian has a large and active community of users and developers who contribute to its development and provide support through forums and documentation.\
+\
+Commitment to security and to being free and open-source. \
+\
+Flexibility: Debian can easily be customised extensively allowing to create tailored installations for specific needs. \
+\
+VS Rocky Linux:\
+\
+Rocky is a distribution created as a downstream, community-supported alternative to CentOS, specifically designed to be a free and open-source drop in replacement for CentOS.\
+It aims to provide stability and long term support for enterprise environments. \
+Like CentOS, it is built from the source code of Red Hat Enterprise Linux(RHEL).\
+\
+RHEL is a popular and widely used Linux bistro designed for enterprise environments. Developed by the company Red Hat. Provides a stable, secure and well supported platform for businesses, government agencies, and organisations that require a robust OS for their servers and infrastructure.\
+\
+Upstream and Downstream:\
+\
+Upstream refers to the original source of a software. In the case of Linux bistro the upstream source is the open-source community projects associated with various components of the OS. For example the Linux kernel and various software packages have upstream development communities.\
+\
+Downstream refers to derivatives or bistro that are based on the upstream source. These downstream distress may modify, customise and repackage the software for their specific purposes.\
+\
+So CentOS was a downstream of RHEL which is a downstream of stuff like the linux kernel. And Rocky is a downstream of CentOS because in December of 2020 Red Hat announced a shift in the CentOS projects focus. It would become an upstream testing ground for RHEL.  And now in 2024 CentOS is going end of life (no more support).\
+Considerations:\
+\
+Both OS have different origins and goals. Debian is a general-purpose distribution with a broad range of use cases, while Rocky is positioned as a CentOS replacement, focusing on stability and compatibility with RHEL.\
+\
+
+\f1\b What is Linux?
+\f0\b0 \
+\
+Linux often refers to the family of open-source Unix-like operating systems based on the Linux Kernel. Developed by Linus Torvalds in 1991 (right here in Finland!) is the core component of the Linux operating system. It is often packaged in a distribution (or bistro) that includes the kernel along with supporting system software and libraries. \
+\
+Open Source: Linux is distributed under open source licenses, which means that its source code is freely available to the public. Users have the right to view, modify and distribute the source code.\
+Kernel: The linux kernel is the core part of the OS. T manages hardware resources, provides essential services and acts as the interface between the hardware and the user level applications.\
+Distributions(Distros): Various organisations and communities package the kernel with additional software to create complete operating system distros. Examples of popular Linux distributions include Ubuntu, Debian, Fedora, CentOS and Arch Linux.\
+Multi-user and multi-tasking: Linux is a multi-user and multi-tasking operating system, allowing multiple users to interact with the system simultaneously and running multiple processes concurrently.\
+\
+Command Line interface and Graphical User Interface (CLI and GUI) linux provides both a powerful command line interface and a graphical user interfaces, giving users flexibility in how they interact with the system.\
+\
+Linux is a collaborative effort!\
+Linux can run on various hardware architectures, from personal computers, to servers, embedded systems and mobile devices.\
+\
+\
+
+\f1\b What is RAM(Random Access Memory):
+\f0\b0 \
+\
+RAM is a type of computer memory that is used to store data and machine code currently being used and processed by a commuter. It is a volatile memory, meaning that its contents are lost when the power is turned off. RAM is a crucial component in a computer system and its primary purpose is to provide fast and temporary storage for the operating system, applications and data in use.\
+\
+Key points:\
+\
+Temporary storage but high speed.\
+Volatility unlike hard drives or SSDs it loses its contents when the power is turned off\
+Capacity: much less compared to non volatile memory but the more ram you have the more you can handle data intensive tasks and run multiple applications simultaneously more smoothly.\
+RAM can handle multitasking.\
+There have been multiple generations. Called DDR (Double Data Rate) DDR2, DDR3 and now DDR4.\
+It is slower than cache memory. \
+You can upgrade your RAM to improve performance.\
+\
+
+\f1\b Virtual Hard disk
+\f0\b0 \
+\
+Emulation of physical storage. A VHD is a file or set of files that emulates the functionality of a physical hard disk drive (HDD) within a virtual machine. It is a type of disk storage used by VM platforms to store the operating system, applications and data for a virtual machine.\
+\
+They are typically stored in specific file formats. Common formats include VHD (Hyper-V) and VMDK (used by VMware)\
+\
+Dynamic and Fixed Size: VHDs can be either dynamically expanding or fixed-size. In a dynamically expanding disk the file grows in size as data is added to the virtual machine. I na fixed-size disk, the entire file is allocated at the time of creation, consuming the specified amount of disk space immediately. \
+\
+
+\f1\b IDE
+\f0\b0 \
+\
+IDE (Integrated Drive Electronics):\
+It is a standard interface used to connect storage devices like hard drives and CD/DVD drives. To a computers motherboard. In the context of virtualisation, when you add an ISO image to a virtual machine and do it through the IDE option you\'92re essentially creating a virtual IDE controller within the virtual machine.\
+\
+When you set up a VM you typically need to install an operating system. Instead of using a physical media like a DVD, you can use an ISO image of the installation media. The controller IDE option allows you to attach this virtual DVD drive (where the ISO image is mounted) to the virtual machine. \
+\
+\
+
+\f1\b Primary and Logical Partitions:
+\f0\b0 \
+\
+Primary Partitions:\
+\
+A primary partition is a basic storage unit on a disk. You can create up to four primary partitions on a disk.\
+Of these primary partitions one can be marked as activate or bootable. This partition is where the system looks to find the operating system to boot. \
+Independence: each primary partition is independent of the others and each can contain its own file system and operating system.\
+\
+Logical partition:\
+\
+When you need more partitions on a disk you can create a special type of partition called an extended partition. You can then create multiple logical partitions. The extended partition doesn\'92t hold data itself but acts as a container for logical partitions.\
+Logical partitions are useful when you need more than say four partitions on a disk. Logical partitions are commonly used for data storage or additional operating systems.\
+\
+A mount point in Linux is a directory to which a storage device or partition is attached.\
+\
+/ is root. Which is the top-level directory in the Linux file system hierarchy. It contains the entire file system structure. The root directory is the primary mount point for the root file system.\
+\
+/boot is the director contains files needed for the systems initial boot process. This may include the kernel, initial Ramdisk and boot loader configuration. In some systems its a separate partition to ensure that essential boot files are easily accessible.\
+\
+The /home directory is where user home directories are located. Each user on the system has a subdirectory under home where their personal files and settings are stored.\
+\
+/tmp is a director used for temporary files. Often mounted as asseverate partition or even as temporary file system to enhance security and prevent excessive disk usage.\
+/usr is the directory that contains user related programs, libraries and documentation and other data not required for the systems initial boot. Often mounted as a separate partition.\
+/var is a directory contains variable data, such as logs, spool files, and. Temporary files that may change during the systems operation. Often mounted as a separate partition to prevent it from filling up the root filesystem.\
+\
+/srv is a directory used for site specific data that is served by the system }
