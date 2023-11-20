@@ -1,7 +1,10 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red225\green233\blue240;
+\red224\green232\blue240;\red232\green232\blue237;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c99985\c0;\cssrgb\c90430\c93183\c95310;
+\cssrgb\c90196\c92941\c95294;\cssrgb\c92775\c92777\c94507;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww17420\viewh11860\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
@@ -221,6 +224,365 @@ Swap space extends the virtual memory of the system When the physical RAM is ful
 Page swapping is the process where the operating systems transfers data between the physical RAM and the swap space. Pages of memory that are not actively in use are moved to the swap area. \
 \
 Paging and Swapping Algorithms:\
+This is a type of algorithm that determines which pages of memory should be moved from RAM and the swap space.\
 \
+Performance Impact: While swap space provides additional memory, accessing data from swap space is significantly slower than accessing data from RAM. Excessive swapping also known as \'93thrashing\'94 can lead to a noticeable decline in performance.\
+\
+Swap partition and Swap files. A swap fie is a regular file that the operating system uses for swap space. \
+\
+In Linux there is a Swapiness parameter. That determines how aggressively the kernel swaps out data to the swap space.\
+\
+
+\f1\b Apt vs aptitude:\
+
+\f0\b0 \
+Apt is a command line package management tool used in Debian Linux distros. It is designed for installing, upgrading and managing software packages. It handles dependencies, resolving conflicts and providing a user friendly interface to install and manage packages.\
+\
+Examples: \'93sudo apt update\'94 or \'93sudo apt install <package>\'94\
+Note: apt is often used in conjunction with other commands like \'93apt-get\'94 or \'93apt-cache\'94\
+\
+Aptitude:\
+Aptitude is another package management tool for Debian. Providing a command-line and text-based interface as well as a graphical interface. \
+Functionality: like apt aptitude is used for package management tasks, but it also includes a more advanced dependency resolver and interactive features.\
+\'93Sudo aptitude update\'94\
+\
+Main differences: apt is simpler and only offers a command-line interface while aptitude provides a visual interface. Apt is also simpler. For example wen facing a package conflict only aptitude will suggest a resolution. Aptitude has more complex options but for this project since we are going for as basic a setup as possible apt is more than enough.\
+\
+
+\f1\b SELinux (Security-Enhanced Linux) vs AppArmor\
+
+\f0\b0 \
+What is SELinux? It is a set of security enhancements for the Linux Kernel. It provides mandatory access controls that go beyond traditional Linux discretionary access controls (DAC).\
+Functionality: SELinux enforces fine-grained access control policies, allowing administrators to define and enforce security policies are written in a policy language, and they define rules for subjects (processes, objects(files, devices) and actions. \
+\
+SELinux is commonly used in Red Hat based distros.\
+\
+AppArmor: AppArmor is a Linux security module that provides mandatory access controls for processes. Functionality: Like SELinux, AppArmor allows admins to define and enforce seucirt policies. However it uses a different approach. Employing profiles that are easier to understand for many. \
+Profile-based: AppArmor uses profiles that specify the allowed behaviour of specific applications. Each application runs within its designated profile. \
+AppArmor is commonly used in Debian distros. \
+\
+Key differences:\
+\
+SELinux: uses a policy language with a complex set of rules/\
+AppArmor:  Uses profile-based configuration,  which is considered by some to be more intuitive and easier to manage. \
+\
+How to check if apparmor is running: systemctl is-enabled apparmor or systemctl status apparmor\
+\
+
+\f1\b Sudo and Su
+\f0\b0 \
+\
+Sudo (Superuser do): sudo allows a permitted user to execute a command as the superuser (or another user) as specified in the security policy.\
+To use sudo a user must be granted permission in the shudders file. Users can run commands with elevated privileges by prefixing the command with sudo.\
+It provides a more granular approach to privilege escalation. Allowing admins to specify which users or groups can execute specific commands with elevated privileges. It typically requires the users password to execute a command with elevated privileges. \
+\
+Su (switch user)\
+Su is used to switch to another user account. Typically the superuser account (root) by default.\
+Yo use su you can enter the following command and provide the password for the target user \'93su <username>\'94\
+\
+Key features: Su switches to the specified user account, inheriting the environment of that user. \
+Sudo is more commonly used because of its flexibility and fine grained control over privilege escalation. It also provides an audit trail of commands executed with elevated privileges. \
+\
+To install it we go\
+\
+Su -\
+Apt install sudo\
+To check if it was installed we use dpkg -l | grep sudo\
+\
+To add a user to the sudo group we use\
+\
+Adduser <username> sudo\
+To check we use: getent group sudo\
+\
+To explain the results a bit:\
+\
+sudo:x:27:akuburas\
+Group name: group password (x is traditionally held to represent an Rencrptyed password for the group. The x indicates that the password is stored in a separate file): Group ID (27): group members\
+\
+Getent is a command in unix that retrieves entries from various name service databases, such as passwd, group, etc. It allows you to query information from these databases using a unified interface, regardless of the actual backend implementation. \
+\
+/etc/group is a system file that stores information about user groups on the system. \
+\
+Setting up sudo configuration:\
+\
+Defaults	passwd_tries=3\
+Defaults	badpass_message="<Hey wrong password bud>"\
+Defaults	logfile="/var/log/sudo/sudo.log"\
+Defaults	log_input\
+Defaults	log_output\
+Defaults	iolog_dir="/var/log/sudo"\
+Defaults	requiretty\
+Defaults	secure_path="usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"\
+\
+To explain:\
+\
+First one sets how many password retries we have.\
+Second one sets a custom message to be displayed when an incorrect password is entered. \
+The third line sets the path to the log file.\
+log_input enables logging user inputs. log_output enables logging the output. \
+iolog (input and output log) sets where the input and output is logged.\
+Require tty (terminal) means that a terminal is required to execute commands with sudo.\
+The secure path is the list of directories that are considered safe for execution b sudo. It restrict the directories from which executables can be run using sudo. \
+\
+
+\f1\b Installing SSH and explanations:\
+\
+
+\f0\b0 To install use:\
+Sudo apt install openssh-server\
+Verify\
+Dpkg -l | grep ssh\
+\
+Quick explanation of dpkg and grep.\
+\
+Dpkg -l command in lunar is used to list installed packages. It provides a detailed list of packages, including their status, version, etc. -l list information about installed packages.\
+\
+Grep is a powerful command utility for searching and matching patterns. It is used to filter lines that match a specified pattern, making it a versatile tool for text processing. \
+\
+To configure the SSH we use\
+\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4  sudo vi /etc/ssh/sshd_config\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f3\fs32 \cf5 \cb1 \strokec5 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 To set it up using port 4242 we replace at like line 13 port 22 with 4242. Also make sure to remove the #\
+To disable ssh login as root replace the line at 32 with PermitRootLogin no. Replacing prohibit-password with no. Also remove the #.\
+\
+To check the status of ssh you can use service ssh status or systemctl status ssh.\
+\
+Now let\'92s install the firewall UFW and configure it.\
+\
+UFW or Uncomplicated Firewall is a user friendly command line utility for managing iptables, the default firewall management tool for many linux distros. UFW is designed to simplify the process of configuring a firewall and is particularly well suited for users who may not have extensive knowledge of iptables syntax. \
+\
+Key features of UFW include:\
+\
+Simplicity UFW aims to make firewall management straightforward by providing easy to understand commands to configure firewall rules. \
+Default deny. UFW follows a default deny approach. Meaning that all incoming and outgoing traffic is denied unless allowed.\
+\
+Port based rules. You can create rules for specific ports. Making ti easy to allow ro deny traffic to and from specific services. \
+Logging. UFW includes logging functionality. Allowing you to monitor firewall activity. \
+\
+\
+Once again we install and check ufw the same way as before:\
+\
+Sudo apt install ufw\
+Dpkg -l  | grep ufw\
+\
+To enable it we go\
+Sudo ufw enable\
+To allow incoming connections using port 4242 we use\
+Sudo ufw allow 4242.\
+\
+We handle port forwarding through VirtualBox. \
+Port forwarding allows us to direct network traffic destined for a specific port on my host machine to a specific port on the virtual machine. \
+NAT or Network Address Translation is a technique used in computer networking to map private IP addresses within a local network to a single public IP address. \
+\
+You can check the port status with sudo ufw status\
+\
+Now to connect to your ssh open up iterm 2 or similar. And write ssh <username>@<ip-address> 4242.\
+\
+You will be most likely prompted to put in a password. Afterwards to log out use logout or exit. \
+\
+
+\f1\b So what is SSH?\
+
+\f0\b0 \
+SSH (Secure Shell) is a cryptographic network protocol that allows secure communication over an unsecured network. It is widely used for secure remote administration of servers and secure file transfers. SSH provides a secure alternative to protocols like Telnet. Which transmit data including passwords in an unencrypted format.\
+\
+It provides secure communication, authentication and a remote shell access. \
+\
+Now let\'92s set up a password policy.\
+\
+First lets discuss how to add users. You can add them via the command \
+adduser <username>\
+\
+And to check them out and their password information use the commands\
+Getent passed <username>\
+Sudo chage -l <username>\
+\
+To set up the age policy of passwords we use\
+Sudo vi /etc/login.defs\
+Here we change the PASS_MAX_DAYS to 30. PASS_MIN_DAYS to 2 and PASS_WARN_AGE  to 7.\
+\
+To set up a password strength we must install the libpam-pwquality.\
+Sudo apt install libpam-pwquality\
+dpkg -l | grep libpam-pwquality\
+\
+For reference this is just a library that provides password quality checking for linux systems. PAM is a framework used to manage authentication tasks, allowing admins to configure authentication policies.  This one specifically focuses on enforcing password policies by checking the quality of user passwords based on various criteria. \
+\
+So we open up its configuration via \
+Sudo vi /etc/pam.d/common-password\
+Where in like line 25 where it says password requisite pam_pwquality.so retry=30 \
+We add these additions to the back: \
+minlen=10, \
+lcredit=-1, ucredit=-1, dcredit=-1 (basically telling it to contain at least an uppercase and numeric character. And a lowercase as well)\
+maxrepeat=3 to prevent it from having 3 characters repeat.\
+reject_username to well reject the username being there\
+difok=7 to set the number of changes required in the new password from the old password to 7. \
+And enforce_for_root to have it enforce for root.\
+\
+\
+
+\f1\b Now lets talk about cron\
+
+\f0\b0 \
+Cron is a time-based job scheduler in unix-like operating systems. Crontab (cron table) is the command used to interact with cron services.  It allows users to create view, edit and manage their cron jobs, which are schedules tasks that run automatically at specified intervals. \
+\
+So what we do first is:\
+\
+Sudo crontab -u root -e\
+\
+-u root specifies the user whose crontab I want to edit. And -e opens the crontab file in the default text editor. Allowing me to add, modify or remove cron jobs.\
+\
+*/10 * * * * sh /usr/local/bin/monitoring.sh\
+\
+Is what I write inside.\
+\
+To explain\
+The first field */10 means every 10 minutes. Task is scheduled to run when the minute is divisible evenly by 10.\
+The other stars represent hours (like every hour), and then every day of the month,  every month and every day of the week. And lastly we tell it the command in this case sh (like bash) to run the shell script monitoring.sh\
+\
+If you do crontab -u root -l it will list the current cron jobs for root.\
+\
+Now let us set up the monitoring script.\
+\
+Now I have the monitoring script on my GitHub so we can look at it there if you\'92d like.\
+Uname -a gets us detailed system information. Including kernel name, hostname, kernel version, etc.\
+\
+Grep phsycal etc. extracts lines containing physical id from the CPU information file. \
+Counts the unique occurrences, giving the number of physical CPUs.\
+\
+Free -m displays the total, used and free memory in megabytes. \
+\
+Df -Bg displays the disk space usage in gigabytes. \
+\
+Who -b displays the last system boot time.\
+\
+\
+
+\f1\b Awk
+\f0\b0  \
+\
+Very complicated command that does a lot of stuff. For example ^ looks for something at the start of a line. $1 refers to the first column in the input data. While $2 refers to the second line.\
+\
+Awk processes each line of input data and splits it into fields based on a delimiter (by default spaces or tabs). It uses a pattern action structure. It specifies a condition and the action is executed if the condition is true.\
+Awk is highly versatile and commonly used for tasks like data extraction, text manipulation and report generation.\
+Lets just test it all out.\
+\
+Users lists the lion names of users of the system. While wc -w counts the number of words aka the number of users.\
+\
+Hostname -I retrieves the IP address of the system.\
+Journalctl _COMM=sudo retrieves the journal entries for the sudo commands. Wall sends a message to all logged-in users. The message contains the variables we have made.\
+\
+
+\f1\b\fs28 Bonus:\
+\
+Lighted mariaDB PHP
+\f0\b0\fs24 \
+\
+Sudo apt install lighttpd \
+dpkg -l | grep lighttpd\
+sudo ufw allow 80\
+\
+sudo apt install mariadb-server\
+dpkg -l | grep mariadb-server\
+\
+Start the interactive script to remove the default settings\
+sudo mysql_secure_installation\
+Set root password? [Y/n] n\
+Remove anonymous users? [Y/n] Y\
+Disallow root login remotely? [Y/n] Y\
+Remove test database and access to it? [Y/n] Y\
+Reload privilege tables now? [Y/n] Y\
+\
+Now lets log into mariadb console.\
+\
+sudo mariadb\
+MariaDB [(none)]>\
+\
+Now in this step I will fully admit that my documentation for it is non existent. I had to fidle around a lot a lot. Messed it up many times but here is a command that I believe should work from the get go:\
+\
+First make a database\
+MariaDB [(none)]> CREATE DATABASE <database-name>; (the ; is required)\
+\
+After that:\
+\
+MariaDB [(none)]> GRANT ALL ON <database-name>.* TO '<username-2>'@'localhost' IDENTIFIED BY '<password-2>' WITH GRANT OPTION;\
+MariaDB [(none)]> FLUSH PRIVILEGES;\
+MariaDB [(none)]> exit\
+\
+And now you should have a database with a user created for it specifically. \
+\
+Now you can test it with:\
+mariadb -u <username-2> -p\
+Enter password: <password-2>\
+MariaDB [(none)]>\
+\
+To confirm that the user has access to the database you can use:\
+MariaDB [(none)]> SHOW DATABASES;\
+\
+Now lets exit again with exit.\
+\
+Installing PHP\
+\
+sudo apt install php-cgi php-mysql\
+dpkg -l | grep php\
+\
+Now lets install and configure Wordpress\
+\
+sudo apt install wget\
+sudo wget http://wordpress.org/latest.tar.gz -P /var/www/html\
+sudo tar -xzvf /var/www/html/latest.tar.gz\
+sudo rm /var/www/html/latest.tar.gz\
+sudo cp -r /var/www/html/wordpress/* /var/www/html\
+sudo rm -rf /var/www/html/wordpress\
+sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php\
+\
+sudo vi /var/www/html/wp-config.php\
+\
+Here we have to replace the DB_NAME \'91databse_name_here with the actual database name. Same for the username here and password here place.\
+\
+Now lets configure lighttpd\
+\
+sudo lighty-enable-mod fastcgi\
+sudo lighty-enable-mod fastcgi-php\
+sudo service lighttpd force-reload\
+\
+And now we are basically done. If we go to our computer and write \'93localhost\'94 on chrome or whatnot it should run the website. Its just a template but that\'92s good enough.\
+\
+Explanation for the above:\
+\
+lighttpd(pronounced lighty) is a lightweight nd efficient open source web server.  Its got good performance. Low resource usage, flexible ad supports PHP scripts.\
+\
+PHP(Hypertext Preprocessors) is a popular server side scripting language widely used for the web.Versastile, open source and ease of learning are key to PHP.\
+\
+MariaDB. It is a open source database management system and a fork of MySQL. It is compatible with MySQL in the sense it was developed and designed to be a drop in replacement for it. Fully compatible with it and existing MySQL databases. \
+\
+High performance and decent security features. What else do you need?\
+\
+
+\f1\b What is a database and what is a fork?\
+
+\f0\b0 \
+A database is a structured collection of data organised for efficient retrieval, storage and management.  Similar to types of data organisation we are already used to stuff like strings or structs or whatnot. Just a different format and works differently.\
+\
+In context of software development a fork refers to the creation of a new independent project of version by coping and existing projects source code.\
+\
+Port 80 is the default HTTP port. \
+\
+We enable the FastCGI and FastCGI PHP modules for Lighttpd and reload the service to apply the changes.\
+\
+FastCGI is a protocol for interfacing external applications, like web servers, with web server software. It is an extension for CGI which is a standard protocol for web servers. \
+Fastcgi php refers to using fastcgi as the communication protocol between the web server and the PHP interpreter. Instead of running PHP as a separate process for each request fasctcgi allows the web server to maintain a pool of PHP processes that persist across multiple requests. \
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f3\fs32 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 In summary, FastCGI is a protocol that improves the performance and efficiency of executing external applications, and FastCGI PHP specifically refers to using FastCGI as the communication protocol for PHP processing in a web server environment.\
 \
 }
