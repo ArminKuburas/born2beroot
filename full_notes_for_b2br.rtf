@@ -303,7 +303,7 @@ Getent is a command in unix that retrieves entries from various name service dat
 \
 /etc/group is a system file that stores information about user groups on the system. \
 \
-Setting up sudo configuration:\
+Setting up sudo configuration: make a document in /etc/sudoers.d/ in my case it was named security.\
 \
 Defaults	passwd_tries=3\
 Defaults	badpass_message="<Hey wrong password bud>"\
@@ -312,8 +312,10 @@ Defaults	log_input\
 Defaults	log_output\
 Defaults	iolog_dir="/var/log/sudo"\
 Defaults	requiretty\
-Defaults	secure_path="usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"\
-\
+
+\fs36 Defaults	secure_path="usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"\
+
+\fs24 \
 To explain:\
 \
 First one sets how many password retries we have.\
@@ -322,8 +324,10 @@ The third line sets the path to the log file.\
 log_input enables logging user inputs. log_output enables logging the output. \
 iolog (input and output log) sets where the input and output is logged.\
 Require tty (terminal) means that a terminal is required to execute commands with sudo.\
-The secure path is the list of directories that are considered safe for execution b sudo. It restrict the directories from which executables can be run using sudo. \
-\
+
+\fs36 The secure path is the list of directories that are considered safe for executing sudo. It restrict the directories from which executables can be run using sudo. \
+
+\fs24 \
 
 \f1\b Installing SSH and explanations:\
 \
@@ -344,13 +348,13 @@ To configure the SSH we use\
 \pard\pardeftab720\sl380\partightenfactor0
 
 \f2\fs27\fsmilli13600 \cf2 \cb3 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec4  sudo vi /etc/ssh/sshd_config\
+ sudo vi /etc/ssh/sshd_config\
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f3\fs32 \cf5 \cb1 \strokec5 \
+\f3\fs32 \cf5 \cb1 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 To set it up using port 4242 we replace at like line 13 port 22 with 4242. Also make sure to remove the #\
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 To set it up using port 4242 we replace at like line 13 port 22 with 4242. Also make sure to remove the #\
 To disable ssh login as root replace the line at 32 with PermitRootLogin no. Replacing prohibit-password with no. Also remove the #.\
 \
 To check the status of ssh you can use service ssh status or systemctl status ssh.\
@@ -402,7 +406,7 @@ First lets discuss how to add users. You can add them via the command \
 adduser <username>\
 \
 And to check them out and their password information use the commands\
-Getent passed <username>\
+Getent passwd <username>\
 Sudo chage -l <username>\
 \
 To set up the age policy of passwords we use\
@@ -482,7 +486,7 @@ Journalctl _COMM=sudo retrieves the journal entries for the sudo commands. Wall 
 
 \f1\b\fs28 Bonus:\
 \
-Lighted mariaDB PHP
+Lighttpd mariaDB PHP
 \f0\b0\fs24 \
 \
 Sudo apt install lighttpd \
@@ -583,6 +587,7 @@ Fastcgi php refers to using fastcgi as the communication protocol between the we
 \pard\pardeftab720\sl360\partightenfactor0
 
 \f3\fs32 \cf2 \cb3 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec6 In summary, FastCGI is a protocol that improves the performance and efficiency of executing external applications, and FastCGI PHP specifically refers to using FastCGI as the communication protocol for PHP processing in a web server environment.\
+In summary, FastCGI is a protocol that improves the performance and efficiency of executing external applications, and FastCGI PHP specifically refers to using FastCGI as the communication protocol for PHP processing in a web server environment.\
 \
-}
+Changing hostname nano /etc/hostname\
+				nano /etc/hosts}
